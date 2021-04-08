@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="me.minseok.board.Mapper.BoardMapper">
+
+    <sql id="boardColumns">
+        id
+        , title
+        , content
+        , writer
+        , view_cnt
+        , notice_yn
+        , secret_yn
+        , delete_yn
+        , insert_time
+        , update_time
+        , delete_time
+    </sql>
+
+    <insert id="insertBoard" parameterType="Board">
+        INSERT INTO tb_board (
+        <include refid="boardColumns" />
+        ) VALUES (
+        #{id}
+        , #{title}
+        , #{content}
+        , #{writer}
+        , 0
+        , IFNULL(#{noticeYn}, false)
+        , IFNULL(#{secretYn}, false)
+        , false
+        , NOW()
+        , NULL
+        , NULL
+        )
+    </insert>
+
+    <select id="selectBoardDetail" parameterType="long" resultType="Board">
+        SELECT
+        <include refid="boardColumns" />
+        FROM
+        tb_board
+        WHERE
+        delete_yn = false
+        AND
+        id = #{id}
+    </select>
+
+    <update id="viewCntPlus" parameterType="Board">
+        UPDATE tb_board
+        SET
+        view_cnt = #{viewCnt}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateBoard" parameterType="Board">
+        UPDATE tb_board
+        SET
+        update_time = NOW()
+        , title = #{title}
+        , content = #{content}
+        , writer = #{writer}
+        , notice_yn = IFNULL(#{noticeYn}, false)
+        , secret_yn = IFNULL(#{secretYn}, false)
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="deleteBoard" parameterType="long">
+        UPDATE tb_board
+        SET
+        delete_yn = true
+        , delete_time = NOW()
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="selectBoardList" parameterType="Board" resultType="Board">
+        SELECT
+        <include refid="boardColumns" />
+        FROM
+        tb_board
+        WHERE
+        delete_yn = false
+        <include refid="CommonMapper.search" />
+        ORDER BY
+        notice_yn DESC,
+        id DESC,
+        insert_time DESC
+        <include refid="CommonMapper.paging" />
+    </select>
+
+    <select id="selectBoardTotalCount" parameterType="Board" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        tb_board
+        WHERE
+        delete_yn = false
+        <include refid="CommonMapper.search" />
+    </select>
+
+</mapper>
