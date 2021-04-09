@@ -11,3 +11,6 @@
 ![mysql](https://user-images.githubusercontent.com/49339925/114042832-bc95aa80-98c0-11eb-8cf7-213ffe793e86.PNG)
 
 댓글 입력시 Controller에서 처리중 Flask api 호출해 DAO 업데이트
+
+
+> 참고 : https://congsong.tistory.com/category/Spring%20Boot
