@@ -42,12 +42,34 @@
         id = #{id}
     </select>
 
+    <select id="selectCommentId" parameterType="Comment" resultType="long">
+        SELECT
+        <include refid="commentColumns" />
+        FROM
+        tb_comment
+        WHERE
+        delete_yn = false
+        AND
+        content = #{content}
+        AND
+        writer = #{writer}
+    </select>
+
     <update id="updateComment" parameterType="Comment">
         UPDATE tb_comment
         SET
         update_time = NOW()
         , content = #{content}
         , writer = #{writer}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateCommentClean" parameterType="Comment">
+        UPDATE tb_comment
+        SET
+        update_time = NOW()
+        , clean_comment_yn = false
         WHERE
         id = #{id}
     </update>

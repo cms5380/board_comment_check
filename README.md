@@ -1,7 +1,8 @@
 # 게시판 부정적인 댓글 가리기
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/49339925/114036677-3e82d500-98bb-11eb-96a3-103251ebf863.gif)
 
-
+## Kafka
+API대신 Kafka를 사용하여 비동기로 댓글을 차단할 수 있다
 
 ## Flask api 호출로 부정적 긍정적 판단
 ![negative](https://user-images.githubusercontent.com/49339925/114040392-86efc200-98be-11eb-9cd1-5936d80174ef.PNG)

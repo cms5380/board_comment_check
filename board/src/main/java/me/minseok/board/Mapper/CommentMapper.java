@@ -13,7 +13,9 @@ public interface CommentMapper {
     public int insertComment(Comment params);
     public Comment selectCommentDetail(Long id);
     public int updateComment(Comment params);
+    public int updateCommentClean(Comment params);
     public int deleteComment(Long id);
+    public long selectCommentId(Comment params);
     public List<Comment> selectCommentList(Comment params);
     public int selectCommentTotalCount(Comment params);
 
